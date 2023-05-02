@@ -7,13 +7,10 @@ const emailErr = document.getElementById("email-err");
 const nameErr = document.getElementById("name-err");
 const passwordErr = document.getElementById("password-err");
 
-console.log({ emailErr, nameErr, passwordErr });
-console.log(signUpName.value);
 function validateInfo(e) {
 	e.preventDefault();
 	if (signUpName.value.length < 2 || !signUpName) {
 		nameErr.innerText = "Name Must contain 2 characters or greater";
-		console.log("notthing");
 		signUpName.classList.add("red-border")
 	} else {
         signUpName.classList.remove("red-border")
@@ -42,14 +39,10 @@ function validateInfo(e) {
 		email.value.includes("@") &&
 		password.value.length >= 8
 	) {
-		localStorage.setItem("email", email.value);
-		localStorage.setItem("name", signUpName.value);
-		localStorage.setItem("password", password.value);
 
 		nameErr.innerText = "";
 		emailErr.innerText = "";
 		passwordErr.innerText = "";
-		window.location.href = "login.html";
 	}
 }
 

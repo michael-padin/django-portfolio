@@ -23,14 +23,20 @@
                 <a href="{% url 'books' %}">Books</a>
             </div>
             <div class="navbar__auth">
-                <button><a href="{% url 'signup' %}">Signup</a></button>
-                <button><a href="{% url 'login' %}">Login</a></button>
+                {% if request.user.is_authenticated %}
+                    <p class = "navbar__auth-name">Hi, {{request.user.name}}</p>
+                    <button><a href="{% url 'logout' %}">Logout</a></button>
+                {% else %}
+                    <button><a href="{% url 'signup' %}">Signup</a></button>
+                    <button><a href="{% url 'login' %}">Login</a></button>
+                {% endif %}
+
             </div>
         </div>
     </nav>
 
-        {% block content %}{% endblock  %}
-        {% block scripts %}{% endblock  %}
+    {% block content %}{% endblock  %}
+    {% block scripts %}{% endblock  %}
 </body>
 
 </html>

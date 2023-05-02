@@ -10,7 +10,7 @@
 html,
 body {
 	font-family: "Poppins", sans-serif;
-	font-size: 1	rem;
+	font-size: 14px;
 	background-color: #172231;
 	overflow-x: hidden;
 }
@@ -99,27 +99,26 @@ input[type=number] {
 	gap: 1rem;
 }
 
-.email-container, .name-container, .password-container, .cardnum-container{
+.email-container, .name-container, .username-container, .password-container, .cardnum-container{
 	display: flex;
 	flex-direction: column;
 }
-.email-container > input, .name-container > input, .password-container > input, .cardnum-container > input{
+.email-container > input, .username-container > input, .name-container > input, .password-container > input, .cardnum-container > input{
 	border-radius: 5px;
-	height: 50px;
-	font-size: 1rem;
+	height: 40px;
 	border: 1px solid #aaa;
-	padding: .5rem;
+	padding: 0 .5rem;
 }
-.email-container > span, .name-container > span, .password-container > span{
+.email-container > span, .username-container > span, .name-container > span, .password-container > span{
 	margin-top: 5px;
 	color: red;
 	font-size: 12px;
 }
-.email-container > input:focus, .name-container > input:focus, .password-container > input:focus, .cardnum-container > input:focus{
+.email-container > input:focus, .name-container > input:focus, .username-container > input:focus, .password-container > input:focus, .cardnum-container > input:focus{
 	outline: solid 1px #35df91;
 	border: 2px solid #35df91;
 }
-.email-container > input::placeholder, .name-container > input::placeholder, .password-container > input::placeholder{
+.email-container > input::placeholder, .username-container > input::placeholder, .name-container > input::placeholder, .password-container > input::placeholder{
 	font-size: 14px;
 	font-family: "Poppins", sans-serif;
 }
@@ -207,6 +206,13 @@ input[type=number] {
 .navbar__auth > button > a {
 	font-weight: 700;
 	text-decoration: none;
+}
+
+.navbar__auth-name{
+	text-decoration: none;
+	font-weight: 800;
+	text-transform: uppercase;
+	color: #e0e1e2;
 }
 
 .navbar-container {
