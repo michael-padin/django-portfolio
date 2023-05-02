@@ -1,0 +1,149 @@
+.todos {
+	height: calc(100vh - 100px);
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 2rem;
+	justify-content: center;
+	align-items: center;
+}
+
+.todos > h1 {
+	font-size: 50px;
+	color: #fff;
+	padding: 2rem;
+	text-align: center;
+}
+.todos > h1 > span{
+	color: #35df91;
+}
+
+.red-placeholder::placeholder{
+	color: red;
+}
+
+.red-border{
+	border: 1.5px solid red!important;
+	animation: horizontal-shaking 0.3s;
+}
+
+@keyframes horizontal-shaking {
+	0% { transform: translateX(0) }
+	25% { transform: translateX(5px) }
+	50% { transform: translateX(-5px) }
+	75% { transform: translateX(5px) }
+	100% { transform: translateX(0) }
+   }
+
+.todos__wrapper {
+	width: 500px;
+	height: 600px;
+	position: relative;
+	border-radius: 15px;
+	overflow: hidden;
+	background: #fafafa;
+}
+
+.todolist::-webkit-scrollbar {
+	width: 10px;
+	z-index: 99999;
+}
+.todolist::-webkit-scrollbar-thumb {
+	background-color: #35df91;
+	border-radius: 50px;
+}
+.todolist::-webkit-scrollbar-track {
+	background-color: hsl(152, 73%, 90%);
+}
+
+.todolist {
+	overflow-y: auto;
+	height: 100%;
+	gap: 1rem;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem 1rem 6rem 1rem;
+	background: #ffff;
+}
+
+.todo-container {
+	display: flex;
+	background-color: #f2f6fc;
+	padding: 1rem;
+	border-radius: 15px;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.todo {
+	display: flex;
+	flex: 1;
+	word-break: break-all;
+}
+
+.delete-icon-container {
+	min-width: 40px;
+	width: 40px;
+	padding: 10px;
+	cursor: pointer;
+	height: 40px;
+	border-radius: 10px;
+}
+
+.delete-icon-container:hover {
+	background-color: hsl(0, 100%, 95%);
+}
+
+/* BOTTOM SECTION */
+
+.add-icon-container {
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	width: 50px;
+	height: 40px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+.add-icon-container:hover {
+	background-color: hsl(152, 73%, 90%);
+}
+
+.bottom-wrapper {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	display: flex;
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.bottom-container {
+	gap: 0.5rem;
+	padding: 1rem;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.input-container {
+	width: 100%;
+	border: 1px solid #aaa;
+	border-radius: 15px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+}
+.input-container > input {
+	outline: none;
+	border: none;
+
+	font-size: 1rem;
+	width: 100%;
+	padding: 1rem;
+	display: flex;
+	align-items: center;
+}

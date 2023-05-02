@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.styles.css' %}">
+    {% block css %}{% endblock  %}
+    <title>{% block title %}{% endblock  %}</title>
+</head>
+
+<body>
+    <nav>
+        <div class="navbar__wrapper">
+            <div class="navbar-container">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'emoji' %}">Emoji</a>
+                <a href="{% url 'gallery' %}">Gallery</a>
+                <a href="{% url 'home' %}#contact">Contact</a>
+                <a href="{% url 'todo' %}">Todo App</a>
+                <a href="{% url 'books' %}">Books</a>
+            </div>
+            <div class="navbar__auth">
+                <button><a href="{% url 'signup' %}">Signup</a></button>
+                <button><a href="{% url 'login' %}">Login</a></button>
+            </div>
+        </div>
+    </nav>
+
+        {% block content %}{% endblock  %}
+        {% block scripts %}{% endblock  %}
+</body>
+
+</html>

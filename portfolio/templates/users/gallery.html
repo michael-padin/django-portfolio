@@ -1,0 +1,41 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/gallery.styles.css' %}">
+{% endblock %}
+
+{% block tittle %}
+My Gallery - Michael Padin
+{% endblock tittle %}
+
+
+
+{% block content %}
+<div class="gallery-wrapper">
+  <h1 class="image-title">My Image <span style="color: #35df91">Gallery</span> </h1>
+  <div class="images-wrapper">
+    <div class="image-container">
+      <img src="{% static 'images/crowdfunding-app.jpg' %}" alt="Cloudy sky." />
+    </div>
+    <div class="image-container">
+      <img src="{% static 'images/fiver-profile.png' %}" alt="fiver profile" />
+    </div>
+    <div class="image-container">
+      <img src="{% static 'images/kaela.png' %}" alt="Kaela project" />
+    </div>
+    <div class="image-container">
+      <img src="../images/moka.jpg" alt="Cloudy sky." />
+      <img src="{% static 'images/moka.jpg' %}" alt="Moka project" />
+    </div>
+    <div class="image-container">
+      <img src="{% static 'images/tiktok-clone.png' %}" alt="Tiktok clone project" />
+    </div>
+    <div class="image-container">
+      <img src="../images/portfolio-website.png" alt="Sky with almost no clouds." />
+      <img src="{% static 'images/portfolio-website.png' %}" alt="My portfolio website" />
+    </div>
+  </div>
+</div>
+{% endblock content %}

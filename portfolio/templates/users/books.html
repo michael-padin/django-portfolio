@@ -1,0 +1,138 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/books.styles.css' %}">
+{% endblock css %}
+
+{% block title %}
+Books - Michael Padin
+{% endblock title %}
+
+
+{% block content %}
+<div class="books__wrapper">
+	<h1>My <span>Books</span></h1>
+	<div class="books__container">
+		<div class="book__container">
+			<div class="book__img-container">
+				<img src="{% static 'images/crowdfunding-app.jpg' %}" alt="" />
+			</div>
+			<div class="book__info">
+				<p>become front end developer</p>
+				<div>
+					<p>Php 9999</p>
+					<button class="buy-btn buy-now-btn">Buy now</button>
+				</div>
+			</div>
+		</div>
+		<div class="book__container">
+			<div class="book__img-container">
+				<img src="{% static 'images/kaela.png' %}" alt="" />
+			</div>
+			<div class="book__info">
+				<p>Become a backend developer</p>
+				<div>
+					<p>Php 9999</p>
+					<button class="buy-btn buy-now-btn">Buy now</button>
+				</div>
+			</div>
+		</div>
+		<div class="book__container">
+			<div class="book__img-container">
+				<img src="{% static 'images/kaela.png' %}" alt="" />
+			</div>
+			<div class="book__info">
+				<p>Become a fullstack developer</p>
+				<div>
+					<p>Php 9999</p>
+					<button class="buy-btn buy-now-btn">Buy now</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="customer__details-wrapper">
+		<div class="customer__details-container">
+			<div class="close-container">
+				<?xml version="1.0" encoding="utf-8"?>
+
+				<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+				<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<g id="Menu / Close_MD">
+						<path id="Vector" d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18" stroke="#000000"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					</g>
+				</svg>
+			</div>
+			<form action="" id="custForm">
+				<h2>Final step, make the payment</h2>
+				<p>
+					To finalize your subscription, kindly complete your payment using
+					a valid credit card.
+				</p>
+				<div class="input__container">
+					<div class="name-container">
+						<label for="">Name</label>
+						<input type="text" id="name" placeholder="Michael Padin" class="book__input" />
+						<span id="name-err"></span>
+					</div>
+					<div class="name-container">
+						<label for="">Address</label>
+						<input type="text" id="address" placeholder="Carcar City, Cebu" class="book__input" />
+						<span id="address-err" class="error"></span>
+					</div>
+					<div class="name-container">
+						<label for="">Email</label>
+						<input type="email" id="email" class="book__input" placeholder="padinmichael201@gamil.com" />
+						<span id="email-err" class="error"> </span>
+					</div>
+					<div class="cardnum-container">
+						<label for="">Card number</label>
+						<input type="number" id="cardNum" placeholder="0123456789" class="book__input" />
+						<span id="cardnum-err" class="error"></span>
+					</div>
+					<div class="card-info-container">
+						<div>
+							<label for="">Expiry</label><input type="text" placeholder="1 / 12" class="book__input"
+								id="expiry" />
+							<span id="expiry-err" class="error"></span>
+						</div>
+						<div>
+							<label for="">CVC</label><input type="number" placeholder="123" class="book__input"
+								id="cvc" />
+							<span id="cvc-err" class="error"></span>
+						</div>
+					</div>
+					<div class="pay-btn-container">
+						<button class="pay-btn auth-btn" id="payBtn" type="submit">
+							Pay now
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="feedback__wrapper">
+		<div class="feedback__container">
+			<div class="close-feedback-container">
+				<!--?xml version="1.0" encoding="utf-8"?-->
+
+				<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+				<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<g id="Menu / Close_MD">
+						<path id="Vector" d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18" stroke="#000000"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+					</g>
+				</svg>
+			</div>
+			<p>Thank you for your purchase! <br> Have a great day!</p>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/books.js' %}" defer type="text/javascript"></script>
+{% endblock scripts %}

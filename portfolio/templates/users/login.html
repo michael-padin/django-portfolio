@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/index.styles.css' %}">
+		<title>Login</title>
+	</head>
+	<body>
+		<div class="auth__wrapper">
+			<div class="auth__left" style="background-image: url('{% static 'images/password.svg' %}');">
+				<nav>
+					<div class="navbar__wrapper auth__nav">
+						<div class="navbar-container">
+							<a href="{% url 'home' %}"> <h1>Michael</h1></a>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div class="auth__right">
+				<div class="form__wrapper">
+					<form action="" id="loginForm">
+						<div>
+							<h1>Welcome back!</h1>
+							<p>Please enter your details</p>
+						</div>
+						<div class="input-wrapper">
+							<div class="email-container">
+								<label for="">Email</label>
+								<input type="email" id="email" />
+								<span id="email-err"></span>
+							</div>
+							<div class="password-container">
+								<label for="">Password</label>
+								<input type="password" id="password" />
+								<span id="password-err"></span>
+							</div>
+						</div>
+						<div class="login-btn-wrapper">
+							<button class="login-btn auth-btn">Login</button>
+						</div>
+						<div class="alternative">
+							Don't have an account?
+							<span><a href="{% url 'signup' %}">Sign up</a></span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script src=" {% static 'js/login.js' %}" type="text/javascript" defer></script>
+	</body>
+</html>
