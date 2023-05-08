@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.styles.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -97,7 +97,8 @@ Welcome - Michael Padin
         <h1 style="text-align: center; color: #fff">
             Take A Coffee & <span style="color: #35df91">Chat With Me</span>
         </h1>
-        <form id="messageForm" class="message-form" action="">
+        <form id="messageForm" class="message-form" method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
             <div class="input-wrapper">
                 <div class="input-container">
                     <label for="name">Name</label>
@@ -125,7 +126,7 @@ Welcome - Michael Padin
 {% endblock content %}
 
 
-{% block scripts %} 
+{% block scripts %}
+<script src=" {% static 'js/jquery-3.6.4.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}""></script> 
-<script src = " {% static 'js/jquery-3.6.4.min.js' %}"></script>
 {% endblock  %}

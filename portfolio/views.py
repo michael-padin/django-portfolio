@@ -1,12 +1,25 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
 from .forms import CustomUserCreationForm
+from .models import Contact
+
 
 # Create your views here.
 
 def home(request):
+    
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        contact = Contact(name=name, email=email, message=message)
+        contact.save()
+        return JsonResponse({'success': True})
+    
     return render(request, 'users/home.html')
 
 def user_register(request):

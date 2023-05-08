@@ -5,6 +5,7 @@ $(document).ready(() => {
 		const nameChecker = /^[^0-9]+$/;
 		const email = $("#email").val();
 		const name = $("#name").val();
+		const message = $("#message").val();
 
 		if (!emailChecker.test(email)) {
 			$(".email-error").text("Invalid email!");
@@ -22,7 +23,28 @@ $(document).ready(() => {
 		$("#name").val("");
 		$("#message").val("");
 
-		sendResponse();
+		const csrf = $("input[name=csrfmiddlewaretoken]").val();
+
+		$.ajax({
+			url: "/",
+			type: "POST",
+			data: {
+				name: name,
+				email: email,
+				message: message,
+				csrfmiddlewaretoken: csrf,
+			},
+			success: function (data) {
+				if (data.success) {
+					sendResponse();
+				} else {
+					alert("Something went wrong. Please try again later.");
+				}
+			},
+			error: function (xhr, status, error) {
+				console.log(error);
+			},
+		});
 	};
 
 	const sendResponse = () => {
