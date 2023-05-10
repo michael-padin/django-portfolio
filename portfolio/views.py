@@ -71,7 +71,6 @@ def gallery(request):
 def todo(request):
     user = request.user
     tasks = Task.objects.filter(user=user)
-    print(tasks)
     return render(request, 'users/todo.html', {'tasks': tasks})
 
 def delete_task(request, task_id):
