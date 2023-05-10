@@ -10,5 +10,6 @@ urlpatterns = [
     path('emoji', views.emoji, name='emoji'),
     path('gallery', views.gallery, name='gallery'),
     path('todo', views.todo, name='todo'),
-    path('books', views.books, name='books'),
+    path('tasks/delete/<int:task_id>/', views.delete_task, name='delete_task'),
+    path('tasks/create/', views.create_task, name='create_task'),
 ]

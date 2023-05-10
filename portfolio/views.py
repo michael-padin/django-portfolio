@@ -4,8 +4,8 @@ from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
-from .forms import CustomUserCreationForm
-from .models import Contact
+from .forms import CustomUserCreationForm, TaskForm
+from .models import Contact, Task
 
 
 # Create your views here.
@@ -60,15 +60,38 @@ def user_logout(request):
         logout(request)
         return redirect('login')
 
-def emoji(request):
+def emoji(request):     
     return render(request, 'users/emoji.html')
 
 def gallery(request):
     return render(request, 'users/gallery.html')
 
+
 @login_required(login_url='login')
 def todo(request):
-    return render(request, 'users/todo.html')
+    user = request.user
+    tasks = Task.objects.filter(user=user)
+    print(tasks)
+    return render(request, 'users/todo.html', {'tasks': tasks})
+
+def delete_task(request, task_id):
+    if request.method == 'POST':
+        task = Task.objects.get(id=task_id)
+        task.delete()
+        return redirect('todo')
+
+def create_task(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
+            return redirect('todo')
+    else:
+        form = TaskForm()
+    return render(request, 'users/todo.html', {'form': form})
+
 
 def books(request):
     return render(request, 'users/books.html')

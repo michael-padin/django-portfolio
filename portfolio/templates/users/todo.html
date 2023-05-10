@@ -11,87 +11,28 @@
 <div class="todos">
 	<h1>My <span>To-do list</span></h1>
 	<div class="todos__wrapper">
-		<div class="todolist"></div>
-		<div class="bottom-wrapper">
-			<div class="bottom-container">
-				<div class="add-icon-container">
-					<?xml version="1.0" encoding="utf-8"?>
-
-					<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-					<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<g id="Edit / Add_Plus">
-							<path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#35df91" stroke-width="2"
-								stroke-linecap="round" stroke-linejoin="round" />
-						</g>
-					</svg>
+		<div class="todolist">
+			{% if  tasks %}
+				{% for task in tasks %}
+				<div class="todo-container">
+					<div class="todo">
+						<span> {{task.name}}</span>
+					</div>
+					<form action="{% url 'delete_task' task.id %}" method='POST' class="delete-icon-container" >
+						{% csrf_token %}	
+						<button type="submit" role="button">
+							<?xml version="1.0" encoding="utf-8"?>
+							<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+							<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+								<path fill="red"
+									d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32zm192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32z" />
+							</svg>
+						</button>
+					</form>
 				</div>
-				<div class="input-container">
-					<input type="text" placeholder="Enter your todo here..." class="inputted-todo" />
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-{% endblock content %}
-
-
-{% block scripts %}
-<script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
-<script>
-	$(document).ready(() => {
-		let id = 1;
-		let todos = [];
-		const addBtn = $(".add-icon-container");
-		let todo = $(".inputted-todo");
-		const todosContainer = $(".todolist");
-
-		todo.on("focus", () => {
-			todo.parent().removeClass("red-border");
-			todo.removeClass("red-placeholder");
-		});
-
-		addBtn.on("click", () => {
-			if (!todo.val()) {
-				todo.parent().addClass("red-border");
-				todo.addClass("red-placeholder");
-				return;
-			}
-
-			todo.parent().removeClass("red-border");
-			todo.removeClass("red-placeholder");
-			todos = [{ id, todo: todo.val() }, ...todos];
-			$(".initial-data")?.remove();
-
-			todosContainer.prepend(`<div class="todo-container" >
-				<div class="todo">
-					<span
-						> ${todo.val()}
-					</span>
-				</div>
-				<div class="delete-icon-container" id=${id}>
-					<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-					<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-						<path
-							fill="red"
-							d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32zm192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32z"
-						/>
-					</svg>
-				</div>
-			</div>`);
-			todo.val("");
-
-			id++;
-			let removeBtn = $(".delete-icon-container");
-
-			removeBtn.on("click", (e) => {
-				console.log($(e.currentTarget).parent().remove());
-				appendInitialData();
-			});
-		});
-
-		const appendInitialData = () => {
-			if (todosContainer.children().length === 0) {
-				todosContainer.append(`<div
+				{% endfor %}
+			{% else %}
+			<div
 				style="
 					height: 100%;
 					display: flex;
@@ -101,14 +42,28 @@
 				class = "initial-data"
 			>
 				<div style="background-color: #f2f6fc; padding: 1rem; border-radius: 10px;">Add your todo now!</div>
-			</div>`);
-			}
-		};
-
-		appendInitialData();
-	});
-</script>
-{% endblock scripts %}
-
-
-		
+			</div>
+			{% endif %}
+			
+		</div>
+		<div class="bottom-wrapper">
+			<form method="post" action="{% url 'create_task' %}" class="bottom-container">
+				{% csrf_token %}
+				<button class="add-icon-container" type = "submit">
+					<?xml version="1.0" encoding="utf-8"?>
+					<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+					<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<g id="Edit / Add_Plus">
+							<path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="#35df91" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round" />
+						</g>
+					</svg>
+				</button>
+				<div class="input-container">
+					<input type="text" placeholder="Enter your todo here..." class="inputted-todo" name="name" id="name" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %}
