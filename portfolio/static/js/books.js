@@ -10,7 +10,7 @@ const custForm = document.getElementById("custForm");
 
 const custDetailsWrapper = document.querySelector(".customer__details-wrapper");
 const payBtn = document.getElementById("payBtn");
-// const buyNowBtn = document.getElementById("buy-now-btn");
+
 const allBuyBtn = document.querySelectorAll(".buy-now-btn");
 
 const emailErr = document.getElementById("email-err");
@@ -26,10 +26,10 @@ const closeBtn = document.querySelector(".close-container");
 const feedbackWrapper = document.querySelector(".feedback__wrapper");
 const feedbackContainer = document.querySelector(".feedback__container");
 const closeFeedbackBtn = document.querySelector(".close-feedback-container");
+let bookID;
 
-function validateInfo(e) {
+function validateInfo() {
 	let isError = false;
-	e.preventDefault();
 
 	if (!address.value) {
 		addressErr.innerText = "Address can't be empty";
@@ -116,22 +116,12 @@ function validateInfo(e) {
 		cvcErr.innerText = "";
 	}
 
-	if (isError) {
-		return;
-	} else {
-		address.value = "";
-		cardNum.value = "";
-		cardNum.value = "";
-		signUpName.value = "";
-		email.value = "";
-		expiry.value = "";
-		cvc.value = "";
-		closePaymentForm();
-		displayPurchaseFeedback();
-	}
+	return isError;
 }
 
-function displayCusForm() {
+function displayCusForm(e) {
+	bookID = e.target.getAttribute("book-id");
+
 	custForm.parentElement.classList.remove("popout");
 	custForm.parentElement.classList.add("popup");
 	custDetailsWrapper.classList.add("show");
@@ -157,6 +147,63 @@ function closePaymentForm() {
 	}, 100);
 }
 
+// function to submit payments in books
+function handleSubmitPayment(e) {
+	e.preventDefault();
+
+	const hasError = validateInfo();
+
+	console.log(hasError);
+
+	if (hasError) return;
+
+	// Prepare the data to be sent
+	var data = {
+		name: signUpName.value,
+		address: address.value,
+		email: email.value,
+		card_number: cardNum.value,
+		expiry: expiry.value,
+		cvc: cvc.value,
+		book_id: bookID
+	};
+
+	fetch("/save-customer/", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(data),
+	}).then(function(response) {
+		if (response.ok) {
+			// Handle success response
+
+			closePaymentForm();
+			displayPurchaseFeedback();
+			// Clear form fields
+			custForm.reset();
+		} else {
+			// Handle error response
+			alert('An error occurred while saving customer information.');
+			console.error(response.statusText);
+		}
+	})
+	.catch(function(error) {
+		// Handle network error
+		alert('An error occurred while saving customer information.');
+		console.error(error);
+	});;
+
+	address.value = "";
+	cardNum.value = "";
+	cardNum.value = "";
+	signUpName.value = "";
+	email.value = "";
+	expiry.value = "";
+	cvc.value = "";
+
+}
+
 function closeFeedbackMessage() {
 	feedbackContainer.classList.add("popout");
 	setTimeout(() => {
@@ -176,4 +223,4 @@ allBuyBtn.forEach((btn) => {
 });
 
 closeBtn.addEventListener("click", closePaymentForm);
-custForm.addEventListener("submit", validateInfo);
+custForm.addEventListener("submit", handleSubmitPayment);

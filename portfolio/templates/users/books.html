@@ -15,42 +15,24 @@ Books - Michael Padin
 <div class="books__wrapper">
 	<h1>My <span>Books</span></h1>
 	<div class="books__container">
+		{% for book  in  books %}
 		<div class="book__container">
 			<div class="book__img-container">
-				<img src="{% static 'images/crowdfunding-app.jpg' %}" alt="" />
+				<img src="{{ book.image_base64}}" alt="{{ book.title }}" />
 			</div>
 			<div class="book__info">
-				<p>become front end developer</p>
 				<div>
-					<p>Php 9999</p>
-					<button class="buy-btn buy-now-btn">Buy now</button>
+					<p class="book-title">{{book.title}}</p>
+					<span style ="font-size: .875rem;">{{book.description}}</span>
+				</div>
+				<div>
+					<p>Php {{book.price}}</p>
+					<button class="buy-btn buy-now-btn" book-id="{{book.id}}">Buy now</button>
 				</div>
 			</div>
 		</div>
-		<div class="book__container">
-			<div class="book__img-container">
-				<img src="{% static 'images/kaela.png' %}" alt="" />
-			</div>
-			<div class="book__info">
-				<p>Become a backend developer</p>
-				<div>
-					<p>Php 9999</p>
-					<button class="buy-btn buy-now-btn">Buy now</button>
-				</div>
-			</div>
-		</div>
-		<div class="book__container">
-			<div class="book__img-container">
-				<img src="{% static 'images/kaela.png' %}" alt="" />
-			</div>
-			<div class="book__info">
-				<p>Become a fullstack developer</p>
-				<div>
-					<p>Php 9999</p>
-					<button class="buy-btn buy-now-btn">Buy now</button>
-				</div>
-			</div>
-		</div>
+		{% endfor %}
+
 	</div>
 	<div class="customer__details-wrapper">
 		<div class="customer__details-container">
@@ -65,7 +47,7 @@ Books - Michael Padin
 					</g>
 				</svg>
 			</div>
-			<form action="" id="custForm">
+			<form id="custForm">
 				<h2>Final step, make the payment</h2>
 				<p>
 					To finalize your subscription, kindly complete your payment using
@@ -94,7 +76,7 @@ Books - Michael Padin
 					</div>
 					<div class="card-info-container">
 						<div>
-							<label for="">Expiry</label><input type="text" placeholder="1 / 12" class="book__input"
+							<label for="">Expiry</label><input type="date" class="book__input"
 								id="expiry" />
 							<span id="expiry-err" class="error"></span>
 						</div>

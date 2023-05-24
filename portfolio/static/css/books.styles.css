@@ -3,6 +3,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	padding: 2rem 0;
 }
 
 .books__wrapper > h1 {
@@ -33,6 +34,7 @@
 }
 
 .book__info {
+	max-height: 200px;
 	padding: 1rem;
 	min-height: 150px;
 	display: flex;
@@ -46,7 +48,18 @@
 	font-weight: 500;
 }
 
-.book__info > div {
+.book-title{
+	font-size: 1rem;	
+	color: hsl(152, 73%, 40%)!important;
+	font-weight: 700;
+}
+
+.book__info > div:nth-child(1) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.book__info > div:nth-child(2) {
 	align-items: center;
 	margin-top: 2rem;
 	display: flex;

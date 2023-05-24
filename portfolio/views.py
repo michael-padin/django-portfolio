@@ -3,14 +3,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 from .forms import CustomUserCreationForm, TaskForm
-from .models import Contact, Task
+from .models import Contact, Task, Book, Customer
 
 
 # Create your views here.
 
-def home(request):
+# HOME PAGE
+def     home(request):
     
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -22,6 +25,49 @@ def home(request):
     
     return render(request, 'users/home.html')
 
+
+@csrf_exempt
+def save_customer(request):
+    if request.method == 'POST':
+        # Get the data from the request body
+        data = json.loads(request.body)
+
+        # Extract the customer information
+        book_id = data.get('book_id')
+        name = data.get('name')
+        address = data.get('address')
+        email = data.get('email')
+        card_number = data.get('card_number')
+        expiry_date = data.get('expiry')
+        cvc = data.get('cvc')
+
+        try:
+            # Retrieve the book object
+            book = Book.objects.get(id=book_id)
+
+            # Save the customer to the database with the book foreign key
+            customer = Customer(
+                book=book,
+                name=name,
+                address=address,
+                email=email,
+                card_number=card_number,
+                expiry_date=expiry_date,
+                cvc=cvc
+            )
+            customer.save()
+
+            # Return a success response
+            return JsonResponse({'message': 'Customer information saved successfully.'})
+
+        except Book.DoesNotExist:
+            # Return an error response if the book does not exist
+            return JsonResponse({'error': 'Book does not exist.'}, status=400)
+
+    # Return an error response for non-POST requests
+    return JsonResponse({'error': 'Invalid request method.'}, status=400)
+
+# Register User
 def user_register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -38,7 +84,7 @@ def user_register(request):
         form = CustomUserCreationForm()
     return render(request, 'users/signup.html', {'form': form})
 
-
+# Login user
 def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -56,29 +102,35 @@ def user_login(request):
             return render(request, 'users/login.html', context)
     return render(request, 'users/login.html')
 
+# Logout user
 def user_logout(request):
         logout(request)
         return redirect('login')
 
+# Emoji table
 def emoji(request):     
     return render(request, 'users/emoji.html')
 
+# gallery page
 def gallery(request):
     return render(request, 'users/gallery.html')
 
 
+# todo app
 @login_required(login_url='login')
 def todo(request):
     user = request.user
     tasks = Task.objects.filter(user=user)
     return render(request, 'users/todo.html', {'tasks': tasks})
 
+# delete task in todo app
 def delete_task(request, task_id):
     if request.method == 'POST':
         task = Task.objects.get(id=task_id)
         task.delete()
         return redirect('todo')
-
+    
+# create task in todo app
 def create_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -91,10 +143,11 @@ def create_task(request):
         form = TaskForm()
     return render(request, 'users/todo.html', {'form': form})
 
-
+# books list
 def books(request):
-    return render(request, 'users/books.html')
-
-
-
+    books = Book.objects.all()
+    context = {
+        'books': books
+    }
+    return render(request, 'users/books.html', context)
 
